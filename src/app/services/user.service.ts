@@ -43,24 +43,25 @@ export class UsersService {
   //   this.usersCollection.add(item);
   // }
 
-  async addUser(user: ProfileUser): Promise<any>  {
+  async addUser(user: ProfileUser): Promise<any> {
     let uid = "dfsd"
     const ref = doc(this.firestore, 'users', uid);
     return from(setDoc(ref, user));
   }
 
-    async addUserr(user: ProfileUser, uid:string): Promise<any>  {
+  async addUserr(user: ProfileUser, uid: string): Promise<any> {
     const ref = doc(this.firestore, 'users', uid);
     return from(setDoc(ref, user));
   }
 
-  async updateUser(user: ProfileUser, uid: string) : Promise<any> {
-    // const uid = await this.authService.getUserInfo()
-    // user = uid.uid
-    // console.log(uid.uid);
+  updateUser(user: ProfileUser, uid: string): Observable<void> {
     const ref = doc(this.firestore, 'users', uid);
     return from(updateDoc(ref, { ...user }));
   }
 
-
+  async getUser(uid: string): Promise<any> {
+    const ref = doc(this.firestore, 'users', uid);
+    console.log(collection(this.firestore, 'users'));
+    return from(getDoc(ref));
+  }
 }
